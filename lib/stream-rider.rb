@@ -1,7 +1,7 @@
-require "stream-rdier/version"
+require "stream-rider/version"
 
 module Stream
-  module Rdier
+  module Rider
     # Your code goes here...
   end
 end

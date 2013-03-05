@@ -1,5 +1,5 @@
 module Stream
-  module Rdier
+  module Rider
     VERSION = "0.0.1"
   end
 end

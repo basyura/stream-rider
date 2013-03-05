@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/stream-rdier/version', __FILE__)
+require File.expand_path('../lib/stream-rider/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["basyura"]
@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.name          = "stream-rdier"
+  gem.name          = "stream-rider"
   gem.require_paths = ["lib"]
-  gem.version       = Stream::Rdier::VERSION
+  gem.version       = Stream::Rider::VERSION
 end
