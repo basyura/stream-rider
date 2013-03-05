@@ -1,12 +1,15 @@
 #!/usr/bin/env ruby
 
+require 'tweetstream'
+require 'growl_notify'
+
 GrowlNotify.config do |gconf|
   gconf.application_name      = "stream-rider"
   gconf.notifications         = ["notify" , "mentions" , "search"]
   gconf.default_notifications = ["notify"] 
 end
 
-yaml = YAML.load(open(File.expand_path('~/.streamrider/config')).read)
+yaml = YAML.load(open(File.expand_path('~/.stream-rider/config')).read)
 
 TweetStream.configure do |config|
   config.consumer_key       = yaml["consumer_key"]
