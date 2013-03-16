@@ -34,19 +34,23 @@ end
 puts "start streaming ..."
 
 while true
-  TweetStream::Client.new.userstream do |tweet|
-    puts "#{tweet.user.screen_name} : #{tweet.text}"
-    #GrowlNotify.normal(
-     #:application_name => "stream-rider",
-     #:title       => tweet.user.screen_name, 
-     #:description => tweet.text ,
-     #:icon        => path 
-    #)
-    image = image_path(tweet)
-    cmd = "growlnotify  -a 'stream-rider' -t '#{tweet.user.screen_name}'"
-    cmd << " --image #{image}" if image
-    cmd << " -m '#{tweet.text}' -n 'stream-rider'"
-    `#{cmd}`
+  begin
+    TweetStream::Client.new.userstream do |tweet|
+      puts "#{tweet.user.screen_name} : #{tweet.text}"
+      #GrowlNotify.normal(
+       #:application_name => "stream-rider",
+       #:title       => tweet.user.screen_name, 
+       #:description => tweet.text ,
+       #:icon        => path 
+      #)
+      image = image_path(tweet)
+      cmd = "growlnotify  -a 'stream-rider' -t '#{tweet.user.screen_name}'"
+      cmd << " --image #{image}" if image
+      cmd << " -m '#{tweet.text}' -n 'stream-rider'"
+      `#{cmd}`
+    end
+  rescue
+    puts "error ..."
   end
 
   sleep 5
