@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'yaml'
 require 'tweetstream'
 require 'growl_notify'
 
@@ -32,6 +33,8 @@ def image_path(tweet)
 end
 
 def growl(tweet)
+  return if tweet.user.screen_name == 'rails_rt_ja'
+
   puts "#{tweet.user.screen_name} : #{tweet.text}"
   #GrowlNotify.normal(
   #:application_name => "stream-rider",
@@ -43,7 +46,7 @@ def growl(tweet)
   name = tweet.text =~ /@basyura/ ? 'stream-rider-reply' : 'stream-rider'
 
   image = image_path(tweet)
-  text  = tweet.text.gsub('"', '\"')
+  text  = tweet.text.gsub('"', '\"').gsub('`', '｀').gsub('$', '＄')
   cmd = "growlnotify -t '#{tweet.user.screen_name}'"
   cmd << " --image #{image}" if image
   cmd << " -m \"#{text}\" -n #{name}"
@@ -58,10 +61,12 @@ end
 puts "start streaming ..."
 
 while true
+  client = nil
   begin
-    TweetStream::Client.new.userstream {|tweet| growl(tweet) }
+    client = TweetStream::Client.new.userstream {|tweet| growl(tweet) }
   rescue
+    client.close_connection if client
     puts "streaming error ..."
   end
-  sleep 5
+  sleep 20
 end
